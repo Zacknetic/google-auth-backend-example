@@ -3,19 +3,17 @@ import googleOAuthApiRoutes from './googleOAuthApiRoutes';
 import exampleAppApiRoutes from './exampleAppApiRoutes';
 import dotenv from 'dotenv';
 import cors from 'cors';
-
+const https = require('https');
+const fs = require('fs');
+https.globalAgent.options.ca = fs.readFileSync('./ca-crt.pem');
 dotenv.config();
-
-
 
 const app = express();
 const PORT = process.env.PORT;
 
-
 app.use(express.json());
 app.use(cors());
 app.use(googleOAuthApiRoutes, exampleAppApiRoutes);
-
 
 // #region Helper Functions
 

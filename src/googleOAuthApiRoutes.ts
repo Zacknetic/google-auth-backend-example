@@ -18,15 +18,14 @@ router.post(
 	asyncHandler(async (req, res) => {
 		console.log(req.body.email);
 		const redirectUrl = await login(req.body.email);
-		console.log(redirectUrl);
 		res.status(200).json({ redirectUrl });
 	})
 );
 
 router.get('/callback', asyncHandler(async (req, res) => {
     const code = req.query.code as string;
+	console.log(code);
     const idToken = await getIdToken(code); 
-
     // Path to HTML file
     const filePath = path.join(__dirname, '../public/callback.html');
 
